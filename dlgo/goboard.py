@@ -72,6 +72,16 @@ class Board:
     self._grid = {}
     self._hash = zobrist.EMPTY_BOARD
 
+  def __init__(self, num_rows, num_cols, grid):
+    self.num_rows = num_rows
+    self.num_cols = num_cols
+    self._grid = {}
+    for r in range(self.num_rows):
+      for c in range(self.num_cols):
+        if grid[r, c] != 0:
+          self._grid[Point(row=r, col=c)] = grid[r, c]
+    self._hash = zobrist.EMPTY_BOARD
+
   def place_stone(self, player, point):
     assert self.is_on_grid(point)
     assert self._grid.get(point) is None
